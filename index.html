@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html ng-app>
+<head>
+	<meta charset="UTF-8" />
+	<title>Google+ Sample</title>
+	<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.0.5/angular.min.js"></script>
+	<script src="js/controller.js"></script>
+	<script src="https://plus.google.com/js/client:plusone.js"></script>
+	<script>
+		// callback after SignIn
+		function onSignInCallback(authResult) {
+			var elem = document.getElementById('detail');
+			elem.style.display = 'block';
+			// angular.element(elem).scope().signIn(authResult);
+		}
+	</script>
+</head>
+<body>
+	<div ng-controller="SampleCtrl">
+		<button ng-click="test()">test</button>
+	</div>
+	<div id="viewResult" ng-controller="GplusCtrl">
+		<div id="gConnect" ng-hide="isSignIn">
+			<button class="g-signin"
+				data-scope="https://www.googleapis.com/auth/plus.login"
+				data-requestvisibleactions="http://schemas.google.com/AddActivity"
+				data-clientId="435097218844-7opkl3jgk95flmo6dvk3bd2pp907203i.apps.googleusercontent.com"
+				data-accesstype="offline"
+				data-callback="onSignInCallback"
+				data-theme="dark"
+				data-cookiepolicy="single_host_origin">
+			</button>
+		</div>
+		<div id="detail" style="display:none">
+			<input type="hidden" ng-model="authResult"></input>
+			<button ng-click="signIn()">Get Profile</button>
+			<div>
+				<img ng-src="{{profileImage}}" ng-show="isSignIn"></img>
+			</div>
+		</div>
+	</div>
+</body>
+</html>
